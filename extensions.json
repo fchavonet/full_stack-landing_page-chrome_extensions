@@ -1,0 +1,37 @@
+[
+  {
+    "id": "gpt-stats",
+    "name": "GPT Stats",
+    "description": "Curious about how you use ChatGPT? This extension gives you simple and clean stats on your usage, right in your browser.",
+    "icon": "https://raw.githubusercontent.com/fchavonet/chrome_extension-gpt_stats/main/images/icon-128.png",
+    "github": "https://github.com/fchavonet/chrome_extension-gpt_stats",
+    "chromeWebStore": "https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr",
+    "color": "rgb(15, 158, 123)",
+    "screenshots": [
+      "https://lh3.googleusercontent.com/9T0CdxDzK3cw0wWNXwJN_gsmae4PEOjTvpgq6OKqkMONkPhsRG-MmjfHiNs4cnsFvcVb5C3DzR9WO5HGVp2p0lGk=s1280-w1280-h800",
+      "https://lh3.googleusercontent.com/teDdzPaz35EGznDm9WC2Gh440bPfIHl-OOSZ_fj-HzTQCsPlXDG_pGORgLNS0peLUhMd1fXtCtvpjEflOO1CPKRgxg=s1280-w1280-h800",
+      "https://lh3.googleusercontent.com/y8frts7i8vy21R01EJCu2sju32DEvJXUctOTJ9vT9k9inOz4nvR1QWpVDS5hvdDvcVOzpO9sdl-p6xbWrpM54Pv8=s1280-w1280-h800",
+      "https://lh3.googleusercontent.com/_sI87dfXJXl8Daq-N6w2nFhPJTMjiufQVVz34wZGRX4Y2_EdregUBwoG7RbpYbdls89GYljabp8ZKq3MWdt0xNdxrhc=s1280-w1280-h800",
+      "./assets/images/gpt_stats.webp"
+    ]
+  },
+  {
+    "id": "viewport-snap",
+    "name": "Viewport Snap",
+    "splitName": [
+      "Viewport",
+      "Snap"
+    ],
+    "icon": "https://raw.githubusercontent.com/fchavonet/chrome_extension-viewport_snap/main/images/icon-128.png",
+    "description": "Viewport Snap lets you quickly capture web pages and download clean PNG screenshots directly from your browser.",
+    "github": "https://github.com/fchavonet/chrome_extension-viewport_snap",
+    "chromeWebStore": "https://chromewebstore.google.com/detail/viewport-snap/iemaldakjfjhbodmanhmpgchgepndbon?authuser=1&hl=fr",
+    "color": "rgb(14, 165, 233)",
+    "screenshots": [
+      "https://lh3.googleusercontent.com/mJnLwE8czl1gHE4x02Ctle2qy-NPc4oY4JAuuCBVPGWTrPxqaZjZKWe-LOQYsGykujDoZNcPj1Ng8et83DKrudPG=s1280-w1280-h800",
+      "https://lh3.googleusercontent.com/xO4DwtbsfS3IF2Acnt6AXQ3loXJ3MmKxQbUX-JqpgAOCUBUF5B06ib83UIXR0vACcYhQy2_91_rFUhInt5X1Ifvo-Q=s1280-w1280-h800",
+      "https://lh3.googleusercontent.com/x2cQ1W70ITWo4-SrfpFYFwQiGIZgkoNxUBS1yQYTLFt0hkIb4s-80Scfuuv9pm27HA3jRH4xDPY3ddyonvwICmmZmOc=s1280-w1280-h800",
+      "./assets/images/viewport_snap.webp"
+    ]
+  }
+]

@@ -1,244 +1,84 @@
-/* RESET CSS */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* VARIABLES */
 :root {
-    /* LIGHT MODE */
-    --light-text-color: rgb(23, 23, 23);
-    --light-mute-text-color: rgb(115, 115, 115);
-    --light-border-color: rgb(229, 229, 229);
-    --light-background-color: rgb(255, 255, 255);
-    --light-secondary-background-color: rgb(243, 243, 243);
-
-    /* DARK MODE */
-    --dark-text-color: rgb(250, 250, 250);
-    --dark-mute-text-color: rgb(145, 145, 145);
-    --dark-border-color: rgb(70, 70, 70);
-    --dark-background-color: rgb(10, 10, 10);
-    --dark-secondary-background-color: rgb(23, 23, 23);
-
-    /* BOTH MODES */
-    --primary-color: rgb(15, 158, 123);
+    --wave-color: rgb(0, 0, 0);
 }
 
-/* GENERAL */
-body {
+.wave {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;
-    color: var(--light-text-color);
-    background-color: var(--light-background-color);
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background-color: var(--wave-color);
+
+    -webkit-mask-image: url("./assets/images/wave.png");
+    mask-image: url("./assets/images/wave.png");
+
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+
+    -webkit-mask-size: 1000px 100px;
+    mask-size: 1000px 100px;
+
+    transition: background-color 250ms ease;
 }
 
-body.dark {
-    color: var(--dark-text-color);
-    background-color: var(--dark-background-color);
+.wave1 {
+    opacity: 1;
+    z-index: 4;
+    animation: wave-forward 30s linear infinite;
 }
 
-a {
-    text-decoration: none;
-    color: var(--light-text-color);
+.wave2 {
+    bottom: 10px;
+    opacity: 0.5;
+    animation: wave-backward 30s linear infinite;
+    z-index: 3;
+    animation-delay: -5s;
 }
 
-a.dark {
-    color: var(--dark-text-color);
+.wave3 {
+    bottom: 15px;
+    opacity: 0.2;
+    animation: wave-forward 30s linear infinite;
+    z-index: 2;
+    animation-delay: -2s;
 }
 
-.mute {
-    font-size: 10px;
-    color: var(--light-mute-text-color);
+.wave4 {
+    bottom: 20px;
+    opacity: 0.5;
+    animation: wave-backward 15s linear infinite;
+    z-index: 1;
+    animation-delay: -5s;
 }
 
-.mute.dark {
-    color: var(--dark-mute-text-color);
-}
+@keyframes wave-forward {
+    from {
+        -webkit-mask-position-x: 0;
+        mask-position-x: 0;
+    }
 
-/* HEADER */
-header {
-    width: 100%;
-    height: auto;
-    padding: 15px 15px 0 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-#logo-link {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#logo-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-}
-
-#logo-container img {
-    height: 25px;
-}
-
-#logo-container h1 {
-    font-size: 35px;
-}
-
-#logo-link p {
-    font-size: 12px;
-    letter-spacing: 3px;
-}
-
-#toggle-mode-btn {
-    width: 25px;
-    height: 25px;
-    display: none;
-    color: var(--light-text-color);
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-#toggle-mode-btn.dark {
-    color: var(--dark-text-color);
-}
-
-/* MAIN */
-main {
-    width: 100%;
-    height: 100%;
-    padding: 0 15px;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-}
-
-#left-side-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 25px;
-}
-
-#description-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 20px;
-}
-
-#description-text {
-    font-weight: 800;
-}
-
-#description-subtext {
-    font-weight: 200;
-    color: var(--light-mute-text-color);
-}
-
-#chrome-web-store {
-    width: 50%;
-    transition: transform 0.2s ease-in-out;
-}
-
-#chrome-web-store:hover {
-    transform: translateX(5px);
-}
-
-#screenshot {
-    width: 100%;
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
-    -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
-}
-
-/* FOOTER */
-footer {
-    width: 100%;
-    height: auto;
-    padding: 0 15px 15px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    text-align: center;
-}
-
-/* RESPONSIVE */
-@media (min-width: 1200px) {
-    main {
-        flex-direction: row;
+    to {
+        -webkit-mask-position-x: 1000px;
+        mask-position-x: 1000px;
     }
 }
 
-@media (min-width: 992px) {
-    main {
-        gap: 100px;
+@keyframes wave-backward {
+    from {
+        -webkit-mask-position-x: 0;
+        mask-position-x: 0;
+    }
+
+    to {
+        -webkit-mask-position-x: -1000px;
+        mask-position-x: -1000px;
     }
 }
 
-@media (min-width: 768px) {
-    header {
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 30px 30px 0 30px;
-        justify-content: space-between;
-    }
-
-    #toggle-mode-btn {
-        display: block;
-    }
-
-    main {
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 0 30px;
-    }
-
-    #left-side-container {
-        margin-bottom: 80px;
-    }
-
-    footer {
-        padding: 0 30px 15px 30px;
-    }
-}
-
-@media (min-width: 1400px) {
-    main {
-        flex-direction: row;
-    }
-}
-
-@media (max-width: 1399px) and (orientation: landscape) {
-    main {
-        flex-direction: row;
-    }
-}
-
-@media (max-width: 896px) and (orientation: landscape) and (max-height: 500px) {
-    #left-side-container {
-        margin-bottom: 0px;
+@media (prefers-reduced-motion: reduce) {
+    .wave {
+        animation: none;
     }
 }

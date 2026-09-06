@@ -1,106 +1,330 @@
-/***********************************
-* SYSTEM THEME ADAPTATION BEHAVIOR *
-***********************************/
+/************
+* VARIABLES *
+************/
 
-// Tags to which the theme class will be applied.
-targetedTags = [
-  "body",
-  "a",
-  ".mute",
-  "#toggle-mode-btn",
-  "#description-subtext"
-];
+let extensions = [];
 
-const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-const savedTheme = localStorage.getItem("theme");
-const toggleModeBtn = document.getElementById("toggle-mode-btn");
-const screenshot = document.getElementById("screenshot");
+let activeExtensionIndex = 0;
+let activeSlideIndex = 0;
 
-// Apply or remove the "dark" class on each targeted element.
-function applySystemTheme(isDarkMode) {
-  for (i = 0; i < targetedTags.length; i++) {
-    tagName = targetedTags[i];
-    elements = document.querySelectorAll(tagName);
+const extensionTabs = document.getElementById("extension-tabs");
+const extensionDescription = document.getElementById("extension-description");
 
-    for (j = 0; j < elements.length; j++) {
-      if (isDarkMode) {
-        elements[j].classList.add("dark");
-      } else {
-        elements[j].classList.remove("dark");
-      }
+const carousel = document.getElementById("carousel");
+const previousSlideButton = document.getElementById("previous-slide");
+const nextSlideButton = document.getElementById("next-slide");
+const carouselIndicator = document.getElementById("carousel-indicator");
+
+const chromeWebStoreLink = document.getElementById("chrome-web-store-link");
+const githubLink = document.getElementById("github-link");
+
+// Load data
+async function loadExtensions() {
+  const response = await fetch("./extensions.json");
+
+  if (!response.ok) {
+    throw new Error(
+      "Unable to load \"extensions.json\"."
+    );
+  }
+
+  extensions = await response.json();
+
+  renderExtensionTabs();
+  renderExtension();
+}
+
+// Get active extension
+function getActiveExtension() {
+  return extensions[activeExtensionIndex];
+}
+
+
+/*****************
+* EXTENSION TABS *
+*****************/
+
+function renderExtensionTabs() {
+  extensionTabs.innerHTML = "";
+
+  for (let i = 0; i < extensions.length; i++) {
+    const extension = extensions[i];
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.role = "tab";
+    button.dataset.extensionIndex = i;
+    button.className = "extension-tab tab h-10 px-4 flex flex-row justify-center items-center gap-1.5 text-base font-bold rounded-xl";
+
+    if (extension.splitName) {
+      const firstPart = document.createElement("span");
+      firstPart.textContent = extension.splitName[0];
+
+      const secondPart = document.createElement("span");
+      secondPart.textContent = extension.splitName[1];
+
+      const icon = document.createElement("img");
+      icon.src = extension.icon;
+      icon.alt = "";
+      icon.className = "w-4 h-4";
+
+      button.appendChild(firstPart);
+      button.appendChild(icon);
+      button.appendChild(secondPart);
+    } else {
+      const label = document.createElement("span");
+      label.textContent = extension.name;
+
+      const icon = document.createElement("img");
+      icon.src = extension.icon;
+      icon.alt = "";
+      icon.className = "w-4 h-4";
+
+      button.appendChild(icon);
+      button.appendChild(label);
+    }
+
+    button.addEventListener("click", function () {
+      activeExtensionIndex = i;
+      activeSlideIndex = 0;
+
+      renderExtension();
+    });
+
+    extensionTabs.appendChild(button);
+  }
+}
+
+function renderActiveTab() {
+  const tabs = document.querySelectorAll(".extension-tab");
+
+  for (let i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("tab-active");
+
+    tabs[i].setAttribute(
+      "aria-selected",
+      "false"
+    );
+
+    if (i === activeExtensionIndex) {
+      tabs[i].classList.add("tab-active");
+
+      tabs[i].setAttribute(
+        "aria-selected",
+        "true"
+      );
     }
   }
 }
 
-// Update UI elements according to the current theme.
-function updateElements(isDarkMode) {
-  toggleModeBtnIcon = toggleModeBtn.querySelector("i");
 
-  if (isDarkMode) {
-    // Dark mode.
-    toggleModeBtnIcon.className = "bi bi-sun-fill";
-    screenshot.src = "./assets/images/screenshot-gpt_stats-dark.webp"
+/***********
+* CAROUSEL *
+***********/
+
+function renderCarousel() {
+  const extension = getActiveExtension();
+
+  carousel.innerHTML = "";
+  carouselIndicator.innerHTML = "";
+
+  for (let i = 0; i < extension.screenshots.length; i++) {
+    const slide = document.createElement("div");
+    slide.className = "carousel-item w-full h-full shrink-0";
+
+    const image = document.createElement("img");
+    image.src = extension.screenshots[i];
+    image.alt = extension.name + " promotional screenshot " + (i + 1);
+    image.className = "w-full h-full object-cover";
+
+    slide.appendChild(image);
+    carousel.appendChild(slide);
+  }
+
+  renderCarouselPosition();
+  buildCarouselIndicator();
+  renderCarouselControls();
+}
+
+
+// Update carousel position
+function renderCarouselPosition() {
+  const slideWidth = carousel.clientWidth;
+
+  carousel.scrollTo({
+    left: slideWidth * activeSlideIndex,
+    behavior: "smooth"
+  });
+}
+
+
+// Build carousel indicator
+function buildCarouselIndicator() {
+  const extension = getActiveExtension();
+
+  carouselIndicator.innerHTML = "";
+
+  const track = document.createElement("div");
+  track.id = "carousel-indicator-track";
+  track.className = "relative flex flex-row items-center gap-2";
+
+  for (let i = 0; i < extension.screenshots.length; i++) {
+    const slot = document.createElement("button");
+    slot.type = "button";
+    slot.className = "relative w-5 h-2 flex shrink-0 items-center justify-center";
+    slot.setAttribute(
+      "aria-label",
+      "Show screenshot " + (i + 1)
+    );
+
+    const dot = document.createElement("span");
+    dot.className = "block w-2 h-2 rounded-full bg-base-content opacity-25 cursor-pointer";
+    slot.appendChild(dot);
+    slot.addEventListener("click", function () {
+      activeSlideIndex = i;
+
+      renderCarouselPosition();
+      updateCarouselIndicator();
+    });
+
+    track.appendChild(slot);
+  }
+
+  const activeIndicator = document.createElement("span");
+  activeIndicator.id = "carousel-active-indicator";
+  activeIndicator.className = "absolute z-10 left-0 top-0 w-5 h-2 rounded-full bg-base-content transition-transform duration-300 ease-out pointer-events-none";
+
+  track.appendChild(activeIndicator);
+
+  carouselIndicator.appendChild(track);
+
+  updateCarouselIndicator();
+}
+
+// Update carousel indicator position
+function updateCarouselIndicator() {
+  const activeIndicator = document.getElementById("carousel-active-indicator");
+
+  if (!activeIndicator) {
+    return;
+  }
+
+  const slotWidth = 20;
+  const gap = 8;
+  const offset = activeSlideIndex * (slotWidth + gap);
+
+  activeIndicator.style.transform = "translateX(" + offset + "px)";
+}
+
+// Show or hide carousel controls
+function renderCarouselControls() {
+  const extension = getActiveExtension();
+
+  if (extension.screenshots.length > 1) {
+    previousSlideButton.classList.remove("hidden");
+    nextSlideButton.classList.remove("hidden");
   } else {
-    // Light mode
-    toggleModeBtnIcon.className = "bi bi-moon-stars-fill";
-    screenshot.src = "./assets/images/screenshot-gpt_stats-light.webp"
+    previousSlideButton.classList.add("hidden");
+    nextSlideButton.classList.add("hidden");
   }
 }
 
-// Centralized theme application based on input string or system preference.
-function applyTheme(theme) {
-  if (theme === "dark") {
-    applySystemTheme(true);
-    updateElements(true);
-  } else if (theme === "light") {
-    applySystemTheme(false);
-    updateElements(false);
+// Show previous slide
+function previousSlide() {
+  const extension = getActiveExtension();
+
+  activeSlideIndex--;
+
+  if (activeSlideIndex < 0) {
+    activeSlideIndex = extension.screenshots.length - 1;
+  }
+
+  renderCarouselPosition();
+  updateCarouselIndicator();
+}
+
+// Show next slide
+function nextSlide() {
+  const extension = getActiveExtension();
+
+  activeSlideIndex++;
+
+  if (activeSlideIndex >= extension.screenshots.length) {
+    activeSlideIndex = 0;
+  }
+
+  renderCarouselPosition();
+  updateCarouselIndicator();
+}
+
+// Carousel controls events
+previousSlideButton.addEventListener("click", previousSlide);
+nextSlideButton.addEventListener("click", nextSlide);
+
+
+/*************************
+* EXTENSION LINKS RENDER *
+*************************/
+
+function renderLinks() {
+  const extension = getActiveExtension();
+
+  if (extension.chromeWebStore === "") {
+    chromeWebStoreLink.classList.add("btn-disabled", "opacity-40");
+    chromeWebStoreLink.setAttribute("aria-disabled", "true");
+    chromeWebStoreLink.removeAttribute("href");
   } else {
-    applySystemTheme(systemThemeQuery.matches);
-    updateElements(systemThemeQuery.matches);
+    chromeWebStoreLink.classList.remove("btn-disabled", "opacity-40");
+    chromeWebStoreLink.removeAttribute("aria-disabled");
+    chromeWebStoreLink.href = extension.chromeWebStore;
+  }
+
+  if (extension.github === "") {
+    githubLink.classList.add("btn-disabled", "opacity-40");
+    githubLink.setAttribute("aria-disabled", "true");
+    githubLink.removeAttribute("href");
+  } else {
+    githubLink.classList.remove("btn-disabled", "opacity-40");
+    githubLink.removeAttribute("aria-disabled");
+    githubLink.href = extension.github;
   }
 }
 
-// Apply theme based on saved preference or system default.
-if (savedTheme !== null && (savedTheme === "dark" || savedTheme === "light")) {
-  applyTheme(savedTheme);
-} else {
-  applySystemTheme(systemThemeQuery.matches);
-  updateElements(systemThemeQuery.matches);
+
+/*******************
+* EXTENSION RENDER *
+*******************/
+
+function renderExtension() {
+  const extension = getActiveExtension();
+
+  extensionDescription.textContent = extension.description;
+
+  document.documentElement.style.setProperty("--wave-color", extension.color);
+
+  renderActiveTab();
+  renderCarousel();
+  renderLinks();
 }
 
-// Listen for system theme changes if no preference is saved.
-systemThemeQuery.addEventListener("change", function (event) {
-  if (localStorage.getItem("theme") === null) {
-    applySystemTheme(event.matches);
-    updateElements(event.matches);
+
+/*****************
+* INITIALIZATION *
+*****************/
+
+loadExtensions().catch(
+  function (error) {
+    console.error(error);
+    extensionDescription.textContent = "Unable to load extension data.";
   }
-});
+);
 
-// Toggle between light and dark mode when user clicks the button.
-toggleModeBtn.addEventListener("click", function () {
-  isCurrentlyDark = false;
 
-  for (i = 0; i < targetedTags.length; i++) {
-    tagName = targetedTags[i];
-    elements = document.querySelectorAll(tagName);
+/**************
+* FOOTER DATE *
+**************/
 
-    for (j = 0; j < elements.length; j++) {
-      if (elements[j].classList.contains("dark")) {
-        isCurrentlyDark = true;
-        break;
-      }
-    }
-    if (isCurrentlyDark) {
-      break;
-    }
-  }
+const date = document.getElementById("date");
 
-  if (isCurrentlyDark) {
-    applyTheme("light");
-    localStorage.setItem("theme", "light");
-  } else {
-    applyTheme("dark");
-    localStorage.setItem("theme", "dark");
-  }
-});
+date.textContent = new Date().getFullYear();

@@ -5,74 +5,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GPT Stats</title>
-    <meta name="description" content="GPT Stats is a lightweight Chrome extension that tracks your ChatGPT usage: time spent, prompt count, and helpful stats in a clean popup.">
-
-    <link rel="canonical" href="https://fchavonet.github.io/web-gpt_stats_landing_page/">
+    <title>Chrome Extensions</title>
+    <meta name="description" content="">
 
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
 
-    <link rel="preload" as="image" href="./assets/images/screenshot-gpt_stats-light.webp">
-    <link rel="preload" as="image" href="./assets/images/screenshot-gpt_stats-dark.webp">
-
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Script -->
     <script src="./script.js" defer></script>
 </head>
 
-<body>
-    <!-- HEADER -->
-    <header>
-        <!-- Logo -->
-        <a id="logo-link" href="https://fchavonet.github.io/web-gpt_stats_landing_page/">
-            <div id="logo-container">
-                <img src="./assets/images/logo-gpt_stats.webp" alt="GPT Stats logo">
-                <h1>GPT Stats</h1>
-            </div>
-
-            <p class="mute">Your ChatGPT Usage</p>
+<body class="min-h-dvh flex flex-col overflow-x-hidden">
+    <header class="w-full max-w-7xl mx-auto px-4 py-4 flex flex-row justify-between items-center">
+        <a class="flex flex-col justify-center items-start" href="https://fchavonet.github.io/full_stack-landing_page-chrome_extensions/">
+            <strong>Chrome Extensions</strong>
+            <small class="leading-none">by Fabien Chavonet</small>
         </a>
 
-        <!-- Toggle mode button -->
-        <button id="toggle-mode-btn" aria-label="Toggle mode button">
-            <i class="bi bi-moon-stars-fill"></i>
-        </button>
+        <label class="swap swap-rotate mt-2">
+            <input type="checkbox" class="theme-controller" value="dark" />
+
+            <!-- Sun icon -->
+            <i class="bi bi-sun-fill swap-off"></i>
+
+            <!-- Moon icon -->
+            <i class="bi bi-moon-stars-fill swap-on"></i>
+        </label>
     </header>
 
-    <!-- MAIN -->
-    <main>
-        <!-- Left side container -->
-        <div id="left-side-container">
-            <!-- Description -->
-            <div id="description-container">
-                <p id="description-text">
-                    GPT Stats is a lightweight Chrome extension that tracks ChatGPT usage effortlessly.
-                </p>
+    <main class="w-full max-w-7xl mx-auto px-4 py-4 flex flex-1 flex-col justify-evenly items-center">
+        <!-- Extension tabs -->
+        <nav class="w-full flex justify-center items-center">
+            <div id="extension-tabs" class="w-full sm:w-auto tabs tabs-box w-fit max-w-full justify-center rounded-2xl border border-base-300 bg-base-200/80" role="tablist"></div>
+        </nav>
 
-                <p id="description-subtext">
-                    It automatically measures the time you spend using the AI, counts your prompts, and displays useful usage statistics, all in a clean and minimal popup interface.
-                </p>
+        <!-- Description -->
+        <p id="extension-description" class="text-center"></p>
+
+        <!-- Carousel -->
+        <div>
+            <div class="relative w-full max-w-[480px] aspect-[8/5]">
+                <div id="carousel" class="carousel w-full h-full rounded-xl bg-base-200 shadow-xl overflow-hidden"></div>
+
+                <!-- Previous button -->
+                <button id="previous-slide" class="btn btn-circle absolute top-1/2 -translate-y-1/2 left-2 sm:-left-15 text-black border-none bg-white shadow-lg" aria-label="Previous screenshot">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <!-- Next button -->
+                <button id="next-slide" class="btn btn-circle absolute top-1/2 -translate-y-1/2 right-2 sm:-right-15 text-black border-none bg-white shadow-lg" aria-label="Next screenshot">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
             </div>
 
-            <!-- Google Web Store link -->
-            <a href="https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll" target="_blank">
-                <img id="chrome-web-store" src="./assets/images/chrome_web_store.webp" alt="Chrome Web Store">
-            </a>
+            <!-- Indicators -->
+            <div id="carousel-indicator" class="min-h-8 mt-4 flex flex-row items-center justify-center gap-2" aria-label="Carousel pagination"></div>
         </div>
 
-        <!-- Right side container -->
-        <div id="right-side-container">
-            <img id="screenshot" src="./assets/images/screenshot-gpt_stats-light.webp" loading="lazy" alt="GPT Stats screenshot">
+        <!-- CTA -->
+        <div class="w-full flex flex-col sm:flex-row justify-center items-center gap-2">
+            <a id="chrome-web-store-link" class="w-full sm:w-auto btn text-black rounded-xl bg-white transition-transform duration-200 ease-out hover:-translate-y-0.5" href="#" target="_blank">
+                <img class="h-[18px]" src="https://fonts.gstatic.com/s/i/productlogos/chrome_store/v7/192px.svg" alt="Google Chrome Web Store icon">
+                Chrome Web Store
+            </a>
+
+            <a id="github-link" class="w-full sm:w-auto btn text-white rounded-xl bg-black transition-transform duration-200 ease-out hover:-translate-y-0.5" href="#" target="_blank">
+                <i class="bi bi-github text-[18px]"></i> GitHub
+            </a>
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>GPT Stats © 2025</p>
-        <p class="mute">This is an independent project and is not officially affiliated with OpenAI.</p>
+    <footer class="relative h-[129px] overflow-hidden">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+
+        <p class="absolute w-full h-full py-1.5 flex flex-row justify-center items-end text-xs text-white z-20">
+            ©&nbsp;<span id="date"></span>&nbsp;-&nbsp;Chrome Extensions by&nbsp;<a href="https://fchavonet.dev/" target="_blank">Fabien Chavonet</a>
+        </p>
     </footer>
 </body>
 
