@@ -1,5 +1,19 @@
 [
   {
+    "id": "fast-clicker",
+    "name": "Fast Clicker",
+    "description": "A minimal Chrome extension that lets you automate clicks directly in your browser using a simple keyboard shortcut.",
+    "icon": "https://raw.githubusercontent.com/fchavonet/chrome_extension-fast_clicker/main/images/icon-128.png",
+    "github": "https://github.com/fchavonet/chrome_extension-fast_clicker",
+    "chromeWebStore": "",
+    "color": "rgb(245, 158, 11)",
+    "screenshots": [
+      "./assets/images/fast_clicker/fast_clicker-001.webp",
+      "./assets/images/fast_clicker/fast_clicker-002.webp",
+      "./assets/images/fast_clicker/fast_clicker-003.webp"
+    ]
+  },
+  {
     "id": "gpt-stats",
     "name": "GPT Stats",
     "description": "Curious about how you use ChatGPT? This extension gives you simple and clean stats on your usage, right in your browser.",
@@ -8,11 +22,12 @@
     "chromeWebStore": "https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr",
     "color": "rgb(15, 158, 123)",
     "screenshots": [
-      "https://lh3.googleusercontent.com/9T0CdxDzK3cw0wWNXwJN_gsmae4PEOjTvpgq6OKqkMONkPhsRG-MmjfHiNs4cnsFvcVb5C3DzR9WO5HGVp2p0lGk=s1280-w1280-h800",
-      "https://lh3.googleusercontent.com/teDdzPaz35EGznDm9WC2Gh440bPfIHl-OOSZ_fj-HzTQCsPlXDG_pGORgLNS0peLUhMd1fXtCtvpjEflOO1CPKRgxg=s1280-w1280-h800",
-      "https://lh3.googleusercontent.com/y8frts7i8vy21R01EJCu2sju32DEvJXUctOTJ9vT9k9inOz4nvR1QWpVDS5hvdDvcVOzpO9sdl-p6xbWrpM54Pv8=s1280-w1280-h800",
-      "https://lh3.googleusercontent.com/_sI87dfXJXl8Daq-N6w2nFhPJTMjiufQVVz34wZGRX4Y2_EdregUBwoG7RbpYbdls89GYljabp8ZKq3MWdt0xNdxrhc=s1280-w1280-h800",
-      "./assets/images/gpt_stats.webp"
+      "./assets/images/gpt_stats/gpt_stats-001.webp",
+      "./assets/images/gpt_stats/gpt_stats-002.webp",
+      "./assets/images/gpt_stats/gpt_stats-003.webp",
+      "./assets/images/gpt_stats/gpt_stats-004.webp",
+      "./assets/images/gpt_stats/gpt_stats-005.webp",
+      "./assets/images/gpt_stats/gpt_stats-006.webp"
     ]
   },
   {
@@ -28,10 +43,11 @@
     "chromeWebStore": "https://chromewebstore.google.com/detail/viewport-snap/iemaldakjfjhbodmanhmpgchgepndbon?authuser=1&hl=fr",
     "color": "rgb(14, 165, 233)",
     "screenshots": [
-      "https://lh3.googleusercontent.com/mJnLwE8czl1gHE4x02Ctle2qy-NPc4oY4JAuuCBVPGWTrPxqaZjZKWe-LOQYsGykujDoZNcPj1Ng8et83DKrudPG=s1280-w1280-h800",
-      "https://lh3.googleusercontent.com/xO4DwtbsfS3IF2Acnt6AXQ3loXJ3MmKxQbUX-JqpgAOCUBUF5B06ib83UIXR0vACcYhQy2_91_rFUhInt5X1Ifvo-Q=s1280-w1280-h800",
-      "https://lh3.googleusercontent.com/x2cQ1W70ITWo4-SrfpFYFwQiGIZgkoNxUBS1yQYTLFt0hkIb4s-80Scfuuv9pm27HA3jRH4xDPY3ddyonvwICmmZmOc=s1280-w1280-h800",
-      "./assets/images/viewport_snap.webp"
+      "./assets/images/viewport_snap/viewport_snap-001.webp",
+      "./assets/images/viewport_snap/viewport_snap-002.webp",
+      "./assets/images/viewport_snap/viewport_snap-003.webp",
+      "./assets/images/viewport_snap/viewport_snap-004.webp",
+      "./assets/images/viewport_snap/viewport_snap-005.webp"
     ]
   }
 ]
